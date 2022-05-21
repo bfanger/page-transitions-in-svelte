@@ -13,16 +13,15 @@
 html {
   background: var(--divider);
   color: var(--primary-text);
-  font-family: system-ui, sans-serif;
-  font-size: 16px;
-  height: -webkit-fill-available;
-  line-height: 1.5;
+  font-size: 62.5%;
 }
 
 body {
-  height: 100vh;
-  height: -webkit-fill-available;
+  font: 16px/1.5 system-ui, sans-serif;
+  // height: 100vh;
+  // height: -webkit-fill-available;
   margin: 0;
+  overflow-y: scroll;
 }
 
 a {
@@ -33,10 +32,10 @@ a:hover {
   text-decoration: underline;
 }
 
-#app {
-  height: 100%;
-}
+// #app {
+//   height: 100%;
+// }
 
-* {
-  -webkit-tap-highlight-color: transparent;
-}
+// * {
+//   -webkit-tap-highlight-color: transparent;
+// }

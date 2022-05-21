@@ -1,9 +1,8 @@
-import { fetchAll, fetchEpisode, toTeaser } from "$lib/services/episode-fns";
+import { fetchEpisode } from "$lib/services/episode-fns";
 import type { RequestHandler } from "@sveltejs/kit";
 
-// eslint-disable-next-line import/prefer-default-export
 export const get: RequestHandler = async ({ params }) => {
-  const episode = await fetchEpisode(params.slug);
+  const episode = await fetchEpisode(params.episode);
   return {
     body: {
       title: episode.snippet.title,
@@ -11,7 +10,6 @@ export const get: RequestHandler = async ({ params }) => {
       poster: episode.snippet.thumbnails.medium.url,
       date: episode.date,
       description: episode.html,
-      teasers: (await fetchAll()).map(toTeaser),
     },
   };
 };

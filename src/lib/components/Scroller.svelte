@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TeaserDto } from "$lib/services/episode-fns";
+  import type { TeaserDto } from "$lib/services/api-types";
   import Teaser from "./Teaser.svelte";
 
   export let teasers: TeaserDto[];

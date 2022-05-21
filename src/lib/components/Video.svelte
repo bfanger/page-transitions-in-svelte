@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
   export let videoId: string;
   export let poster: string;
   export let alt: string;
 
   let opacity = 1;
-  onMount(() => {
+
+  function onLoad() {
     opacity = 0;
-  });
+  }
 </script>
 
-<div class="video ">
+<div class="video">
   <iframe
     class="embed aspect"
     width="560"
@@ -21,6 +20,7 @@
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
+    on:load={onLoad}
   />
 
   <img class="poster aspect" style:opacity src={poster} {alt} />
@@ -44,7 +44,7 @@
     object-fit: cover;
     object-position: center;
     pointer-events: none;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s 0.1s ease-in-out;
     will-change: opacity;
   }
 </style>

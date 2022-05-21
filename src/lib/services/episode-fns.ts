@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import { marked } from "marked";
+import type { TeaserDto } from "./api-types";
 
 type RawEpisodeDto = {
   kind: string;
@@ -29,7 +30,7 @@ type RawEpisodeDto = {
     videoOwnerChannelId: string;
   };
 };
-type EpisodeDto = RawEpisodeDto & {
+type EnhancedEpisodeDto = RawEpisodeDto & {
   slug: string;
   date: string;
   html: string;
@@ -42,8 +43,8 @@ type ThumbnailDto = {
   height: number;
 };
 
-let cache: Promise<EpisodeDto[]>;
-export function fetchAll(): Promise<EpisodeDto[]> {
+let cache: Promise<EnhancedEpisodeDto[]>;
+export function fetchAll(): Promise<EnhancedEpisodeDto[]> {
   if (!cache) {
     cache = (async () => {
       const response = await (
@@ -51,7 +52,7 @@ export function fetchAll(): Promise<EpisodeDto[]> {
           "https://raw.githubusercontent.com/jakearchibald/http203-playlist/main/lib/data.json"
         )
       ).json();
-      return response.map((episode: EpisodeDto) => ({
+      return response.map((episode: EnhancedEpisodeDto) => ({
         ...episode,
         slug: slugify(episode.snippet.title, {
           lower: true,
@@ -74,13 +75,7 @@ export async function fetchEpisode(slug: string) {
   }
   return episode;
 }
-export type TeaserDto = {
-  href: string;
-  src: string;
-  alt: string;
-  title: string;
-};
-export function toTeaser(episode: EpisodeDto): TeaserDto {
+export function toTeaser(episode: EnhancedEpisodeDto): TeaserDto {
   return {
     href: `/${episode.slug}`,
     src: episode.snippet.thumbnails.medium.url,

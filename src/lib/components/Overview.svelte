@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TeaserDto } from "$lib/services/episode-fns";
+  import type { TeaserDto } from "$lib/services/api-types";
   import Main from "./Main.svelte";
   import Switch from "./Switch.svelte";
   import Teaser from "./Teaser.svelte";
@@ -19,7 +19,7 @@
 
 <style lang="scss">
   .grid {
-    background: var(--divider);
+    // background: var(--divider);
     display: grid;
     gap: var(--content-padding);
     grid-auto-columns: var(--video-list-auto-columns);

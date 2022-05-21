@@ -1,9 +1,23 @@
+<script lang="ts" context="module">
+  import type { Load } from "@sveltejs/kit";
+  import api from "$lib/services/api";
+
+  export const load: Load = async ({ params, fetch }) => {
+    const episode = await api.get("episodes/[episode].json", { params, fetch });
+    const teasers = await api.get("teasers.json", { fetch });
+    return {
+      props: { ...episode, teasers },
+    };
+  };
+</script>
+
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Main from "$lib/components/Main.svelte";
+  import Page from "$lib/components/Page.svelte";
   import Scroller from "$lib/components/Scroller.svelte";
   import Video from "$lib/components/Video.svelte";
-  import type { TeaserDto } from "$lib/services/episode-fns";
+  import type { TeaserDto } from "$lib/services/api-types";
 
   export let title: string;
   export let videoId: string;
@@ -16,21 +30,24 @@
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
-
-<Header backVisible />
-<Main>
-  <main class="video-layout">
-    <div class="video-and-details">
-      <Video {videoId} {poster} alt={title} />
-      <div class="details">
-        <h1 class="title">{title}</h1>
-        <time>{date}</time>
-        <div class="description">{@html description}</div>
+<Page>
+  <Header backVisible />
+  <Main>
+    <main class="video-layout">
+      <div class="video-and-details">
+        {#key videoId}
+          <Video {videoId} {poster} alt={title} />
+        {/key}
+        <div class="details">
+          <h1 class="title">{title}</h1>
+          <time>{date}</time>
+          <div class="description">{@html description}</div>
+        </div>
       </div>
-    </div>
-    <Scroller {teasers} />
-  </main>
-</Main>
+      <Scroller {teasers} />
+    </main>
+  </Main>
+</Page>
 
 <style lang="scss">
   .video-layout {

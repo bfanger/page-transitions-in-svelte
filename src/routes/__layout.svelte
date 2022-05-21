@@ -1,19 +1,14 @@
-<div class="app">
-  <div class="main-layout">
-    <slot />
-  </div>
+<div class="layout">
+  <slot />
 </div>
 
 <style lang="scss">
   :global {
     @import "../global.scss";
   }
-  .app {
-    height: 100%;
-  }
-  .main-layout {
+  .layout {
     display: grid;
-    grid-template-rows: auto 1fr;
-    height: 100%;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: 1fr;
   }
 </style>
