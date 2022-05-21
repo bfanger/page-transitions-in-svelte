@@ -49,7 +49,7 @@
         />
       </div>
       {#key videoId}
-        <div in:fly|local={{ x: 60, opacity: 1 }}>
+        <div class="slide" in:fly|local={{ x: 60, opacity: 1 }}>
           <Video {videoId} {poster} alt={title} />
           <div class="details" in:fade={{ delay: 100, duration: 200 }}>
             <h1 class="title">{title}</h1>
@@ -76,6 +76,9 @@
       height: 100%;
     }
   }
+  .slide {
+    backface-visibility: hidden;
+  }
   .scroller {
     @media (min-width: 900px) {
       width: 23rem;
@@ -87,6 +90,7 @@
     flex-grow: 1;
     overflow-x: hidden;
     position: relative;
+
     @media (min-width: 900px) {
       height: 100%;
       overflow-y: auto;
@@ -109,12 +113,14 @@
   .meta-target {
     flex: 1;
     background: var(--white);
+    backface-visibility: hidden;
   }
   .details {
     overflow: hidden;
     padding: var(--content-padding);
     position: relative;
     background: var(--white);
+    will-change: opacity;
   }
   .title {
     font-size: 1.6rem;

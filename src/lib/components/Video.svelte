@@ -1,11 +1,18 @@
 <script lang="ts">
   import { pageIn, pageOut } from "$lib/services/pageCrossfade";
+  import { onMount } from "svelte";
 
   export let videoId: string;
   export let poster: string;
   export let alt: string;
 
+  let youtube = false;
   let opacity = 1;
+  onMount(() => {
+    setTimeout(() => {
+      youtube = true;
+    }, 400);
+  });
 
   function onLoad() {
     opacity = 0;
@@ -17,17 +24,19 @@
   in:pageIn={`thumb/${videoId}`}
   out:pageOut={`thumb/${videoId}`}
 >
-  <iframe
-    class="embed aspect"
-    width="560"
-    height="315"
-    src="https://www.youtube-nocookie.com/embed/{videoId}"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    on:load={onLoad}
-  />
+  {#if youtube}
+    <iframe
+      class="embed aspect"
+      width="560"
+      height="315"
+      src="https://www.youtube-nocookie.com/embed/{videoId}"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      on:load={onLoad}
+    />
+  {/if}
 
   <img class="poster aspect" style:opacity src={poster} {alt} />
 </div>
@@ -35,6 +44,7 @@
 <style>
   .video {
     display: grid;
+    backface-visibility: hidden;
   }
   .aspect {
     aspect-ratio: 16/9;
@@ -50,7 +60,7 @@
     object-fit: cover;
     object-position: center;
     pointer-events: none;
-    transition: opacity 0.5s 0.1s ease-in-out;
+    transition: opacity 0.3s 0.1s ease-in-out;
     will-change: opacity;
   }
 </style>

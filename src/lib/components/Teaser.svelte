@@ -48,10 +48,15 @@
     height: auto;
     object-fit: cover;
     width: 100%;
+    backface-visibility: hidden;
   }
   .video-meta {
     background-color: var(--white);
     margin: 0;
     padding: 0.6rem 1.6rem;
+    backface-visibility: hidden;
+    > time {
+      will-change: opacity;
+    }
   }
 </style>
