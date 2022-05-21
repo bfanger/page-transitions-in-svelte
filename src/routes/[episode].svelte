@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import type { Load } from "@sveltejs/kit";
-  import api from "$lib/services/api";
+  import api from "../lib/services/api";
 
   export const load: Load = async ({ params, fetch }) => {
     const episode = await api.get("episodes/[episode].json", { params, fetch });

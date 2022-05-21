@@ -77,6 +77,7 @@ export async function fetchEpisode(slug: string) {
 }
 export function toTeaser(episode: EnhancedEpisodeDto): TeaserDto {
   return {
+    videoId: episode.snippet.resourceId.videoId,
     href: `/${episode.slug}`,
     src: episode.snippet.thumbnails.medium.url,
     alt: episode.snippet.title,

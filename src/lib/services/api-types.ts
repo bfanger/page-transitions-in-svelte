@@ -4,6 +4,7 @@ export type ApiGetResponse = {
   "episodes/[episode].json": EpisodeDto[];
 };
 export type TeaserDto = {
+  videoId: string;
   href: string;
   src: string;
   alt: string;

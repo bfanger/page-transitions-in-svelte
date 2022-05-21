@@ -26,7 +26,7 @@
   }
 </script>
 
-<header class="header" class:show-back-icon={backVisible}>
+<header class="header">
   {#key backVisible}
     <a href="/" class="home-link" in:intro>
       {#if backVisible}
@@ -34,9 +34,7 @@
           <path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20v-2z" />
         </svg>
       {/if}
-      <div>
-        <span class="header-text">HTTP 203</span>
-      </div>
+      <div class="header-text">HTTP 203</div>
     </a>
   {/key}
 </header>
@@ -50,7 +48,7 @@
     background: var(--primary-color);
     color: var(--white);
     height: 5.4rem;
-    padding-left: 1rem;
+    padding-left: var(--content-padding);
     display: flex;
     align-items: center;
   }
@@ -65,8 +63,8 @@
     fill: var(--white);
     display: block;
     width: 3.1rem;
-    margin-right: 0.5rem;
     will-change: opacity;
+    margin-right: 0.5rem;
   }
   .header-text {
     fill: var(--white);

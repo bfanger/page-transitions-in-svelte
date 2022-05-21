@@ -1,12 +1,29 @@
 <script lang="ts">
+  import { intro, outro } from "$lib/services/thumbnailTransition";
+
+  export let videoId: string;
   export let href: string;
   export let src: string;
   export let alt: string;
   export let title: string;
+
+  let clicking = false;
 </script>
 
-<a class="video-link" {href}>
-  <img class="video-thumb" {src} {alt} />
+<a
+  class="video-link"
+  {href}
+  on:click|capture={() => {
+    clicking = true;
+  }}
+>
+  <img
+    class="video-thumb"
+    {src}
+    {alt}
+    in:intro={videoId}
+    out:outro={clicking ? videoId : {}}
+  />
   <p class="video-meta"><time>{title}</time></p>
 </a>
 

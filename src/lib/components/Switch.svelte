@@ -25,7 +25,7 @@
     flex-flow: row wrap;
     margin: 0 auto;
     margin-top: var(--content-padding);
-    padding: 0.3rem 0.4rem;
+    padding: 0.5rem 0.7rem;
     width: fit-content;
     > li {
       display: block;
@@ -35,7 +35,7 @@
     border-radius: 1000px;
     color: var(--primary-color);
     display: block;
-    padding: 0.1rem 0.9rem;
+    padding: 0.15rem 1.4rem;
   }
   .active {
     background: var(--primary-color);

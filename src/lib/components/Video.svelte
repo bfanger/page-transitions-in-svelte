@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { intro, outro } from "$lib/services/thumbnailTransition";
+
   export let videoId: string;
   export let poster: string;
   export let alt: string;
@@ -10,7 +12,7 @@
   }
 </script>
 
-<div class="video">
+<div class="video" in:intro={videoId} out:outro={videoId}>
   <iframe
     class="embed aspect"
     width="560"

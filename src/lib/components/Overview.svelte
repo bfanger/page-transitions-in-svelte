@@ -19,7 +19,6 @@
 
 <style lang="scss">
   .grid {
-    // background: var(--divider);
     display: grid;
     gap: var(--content-padding);
     grid-auto-columns: var(--video-list-auto-columns);
