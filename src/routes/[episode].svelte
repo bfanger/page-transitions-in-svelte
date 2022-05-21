@@ -1,9 +1,23 @@
+<script lang="ts" context="module">
+  import type { Load } from "@sveltejs/kit";
+  import api from "$lib/services/api";
+
+  export const load: Load = async ({ params, stuff, fetch }) => {
+    const episode = await api.get("episodes/[episode].json", { params, fetch });
+    const teasers = await api.get("teasers.json", { fetch });
+    stuff.backVisible.set(false);
+    return {
+      props: { ...episode, teasers },
+    };
+  };
+</script>
+
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Main from "$lib/components/Main.svelte";
   import Scroller from "$lib/components/Scroller.svelte";
   import Video from "$lib/components/Video.svelte";
-  import type { TeaserDto } from "$lib/services/episode-fns";
+  import type { TeaserDto } from "$lib/services/api-types";
 
   export let title: string;
   export let videoId: string;

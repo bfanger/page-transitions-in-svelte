@@ -7,12 +7,12 @@
 
   let opacity = 1;
   onMount(() => {
-    opacity = 0;
+    // opacity = 0;
   });
 </script>
 
 <div class="video ">
-  <iframe
+  <!-- <iframe
     class="embed aspect"
     width="560"
     height="315"
@@ -21,7 +21,7 @@
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen
-  />
+  /> -->
 
   <img class="poster aspect" style:opacity src={poster} {alt} />
 </div>
