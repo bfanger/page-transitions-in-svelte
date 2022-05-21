@@ -18,7 +18,6 @@
 <script lang="ts">
   import Overview from "$lib/components/Overview.svelte";
   import type { TeaserDto } from "$lib/services/api-types";
-  import Header from "$lib/components/Header.svelte";
   import Page from "$lib/components/Page.svelte";
 
   export let cohost: string;
@@ -30,6 +29,5 @@
   <title>HTTP 203 - with {name}</title>
 </svelte:head>
 <Page>
-  <Header />
   <Overview {teasers} {cohost} />
 </Page>

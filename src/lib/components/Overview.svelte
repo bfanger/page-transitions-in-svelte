@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { TeaserDto } from "$lib/services/api-types";
-  import Main from "./Main.svelte";
   import Switch from "./Switch.svelte";
   import Teaser from "./Teaser.svelte";
 
@@ -8,16 +7,21 @@
   export let cohost: string | undefined = undefined;
 </script>
 
-<Main>
+<div class="background">
   <Switch active={cohost} />
-  <div class="grid">
+  <ul class="grid">
     {#each teasers as teaser (teaser.href)}
-      <Teaser {...teaser} />
+      <li>
+        <Teaser {...teaser} crossfade />
+      </li>
     {/each}
-  </div>
-</Main>
+  </ul>
+</div>
 
 <style lang="scss">
+  .background {
+    background-color: var(--background);
+  }
   .grid {
     display: grid;
     gap: var(--content-padding);
@@ -30,5 +34,9 @@
     );
     margin: 0;
     padding: var(--content-padding);
+    > li {
+      display: block;
+      box-shadow: 0 4px 4px rgb(0 0 0 / 10%);
+    }
   }
 </style>

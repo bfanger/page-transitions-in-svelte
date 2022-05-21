@@ -18,7 +18,6 @@
   // eslint-disable-next-line import/extensions
   import Overview from "$lib/components/Overview.svelte";
   import type { TeaserDto } from "$lib/services/api-types";
-  import Header from "$lib/components/Header.svelte";
   import Page from "$lib/components/Page.svelte";
 
   export let teasers: TeaserDto[];
@@ -28,6 +27,5 @@
   <title>HTTP 203</title>
 </svelte:head>
 <Page>
-  <Header />
   <Overview {teasers} />
 </Page>

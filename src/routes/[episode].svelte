@@ -12,12 +12,14 @@
 </script>
 
 <script lang="ts">
-  import Header from "$lib/components/Header.svelte";
-  import Main from "$lib/components/Main.svelte";
   import Page from "$lib/components/Page.svelte";
   import Scroller from "$lib/components/Scroller.svelte";
   import Video from "$lib/components/Video.svelte";
   import type { TeaserDto } from "$lib/services/api-types";
+  import { pageIn, pageOut } from "$lib/services/pageCrossfade";
+  import { fade, fly } from "svelte/transition";
+  // eslint-disable-next-line import/extensions
+  import { afterNavigate } from "$app/navigation";
 
   export let title: string;
   export let videoId: string;
@@ -25,51 +27,94 @@
   export let date: string;
   export let description: string;
   export let teasers: TeaserDto[];
+
+  let el: HTMLElement;
+  afterNavigate(() => {
+    el.scrollTo(0, 0);
+  });
 </script>
 
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
-<Page>
-  <Header backVisible />
-  <Main>
-    <main class="video-layout">
-      <div class="video-and-details">
-        {#key videoId}
-          <Video {videoId} {poster} alt={title} />
-        {/key}
-        <div class="details">
-          <h1 class="title">{title}</h1>
-          <time>{date}</time>
-          <div class="description">{@html description}</div>
-        </div>
+<Page backVisible>
+  <div class="video-layout">
+    <div class="video-and-details" bind:this={el}>
+      <div class="card-target">
+        <div class="video-spacer" />
+        <div
+          class="meta-target"
+          in:pageIn={`meta/${videoId}`}
+          out:pageOut={`meta/${videoId}`}
+        />
       </div>
+      {#key videoId}
+        <div in:fly|local={{ x: 60, opacity: 1 }}>
+          <Video {videoId} {poster} alt={title} />
+          <div class="details" in:fade={{ delay: 100, duration: 200 }}>
+            <h1 class="title">{title}</h1>
+            <time>{date}</time>
+            <div class="description">{@html description}</div>
+          </div>
+        </div>
+      {/key}
+    </div>
+    <div class="scroller">
       <Scroller {teasers} />
-    </main>
-  </Main>
+    </div>
+  </div>
 </Page>
 
 <style lang="scss">
   .video-layout {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-
+    display: flex;
+    @media (max-width: 899px) {
+      flex-direction: column;
+      min-height: 100%;
+    }
     @media (min-width: 900px) {
-      grid-template-columns: 1fr 230px;
-      grid-template-rows: none;
       height: 100%;
     }
   }
+  .scroller {
+    @media (min-width: 900px) {
+      width: 23rem;
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
   .video-and-details {
-    display: grid;
-    grid-template-rows: max-content minmax(max-content, 1fr);
+    flex-grow: 1;
     overflow-x: hidden;
-    overflow-y: auto;
+    position: relative;
+    @media (min-width: 900px) {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+  .card-target {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+  }
+  .video-spacer {
+    aspect-ratio: 16/9;
+  }
+  .meta-target {
+    flex: 1;
+    background: var(--white);
   }
   .details {
-    background: var(--white);
     overflow: hidden;
     padding: var(--content-padding);
+    position: relative;
+    background: var(--white);
   }
   .title {
     font-size: 1.6rem;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { intro, outro } from "$lib/services/thumbnailTransition";
+  import { pageIn, pageOut } from "$lib/services/pageCrossfade";
 
   export let videoId: string;
   export let poster: string;
@@ -12,7 +12,11 @@
   }
 </script>
 
-<div class="video" in:intro={videoId} out:outro={videoId}>
+<div
+  class="video"
+  in:pageIn={`thumb/${videoId}`}
+  out:pageOut={`thumb/${videoId}`}
+>
   <iframe
     class="embed aspect"
     width="560"

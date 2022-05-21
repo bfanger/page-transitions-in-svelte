@@ -19,7 +19,7 @@
     --video-list-auto-flow: column;
     --video-list-auto-columns: 135px;
     align-items: start;
-    background: var(--divider);
+    background: var(--background);
     display: grid;
     min-height: 159px;
     overflow-x: auto;
@@ -35,7 +35,7 @@
     }
   }
   .video-list {
-    background: var(--divider);
+    background: var(--background);
     display: grid;
     gap: var(--content-padding);
     grid-auto-columns: var(--video-list-auto-columns);

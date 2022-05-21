@@ -2,7 +2,7 @@
   --white: #fff;
   --primary-text: #212121;
   --secondary-text: #757575;
-  --divider: #bdbdbd;
+  --background: #bdbdbd;
   --primary-color: #673ab7;
   --primary-dark: #512da8;
   --primary-light: #d1c4e9;
@@ -11,17 +11,14 @@
 }
 
 html {
-  background: var(--divider);
+  background: var(--background);
   color: var(--primary-text);
   font-size: 62.5%;
 }
 
 body {
   font: 16px/1.5 system-ui, sans-serif;
-  // height: 100vh;
-  // height: -webkit-fill-available;
   margin: 0;
-  overflow-y: scroll;
 }
 
 a {
@@ -31,11 +28,3 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
-// #app {
-//   height: 100%;
-// }
-
-// * {
-//   -webkit-tap-highlight-color: transparent;
-// }
