@@ -18,8 +18,6 @@
   import type { TeaserDto } from "$lib/services/api-types";
   import { pageIn, pageOut } from "$lib/services/pageCrossfade";
   import { fade, fly } from "svelte/transition";
-  // eslint-disable-next-line import/extensions
-  import { afterNavigate } from "$app/navigation";
 
   export let title: string;
   export let videoId: string;
@@ -28,18 +26,26 @@
   export let description: string;
   export let teasers: TeaserDto[];
 
-  let el: HTMLElement;
-  afterNavigate(() => {
-    el.scrollTo(0, 0);
-  });
+  let layoutEl: HTMLElement;
+  let detailsEl: HTMLElement;
+  $: {
+    videoId;
+    scrollToTop();
+  }
+  function scrollToTop() {
+    if (layoutEl && detailsEl) {
+      layoutEl.scrollTop = 0;
+      detailsEl.scrollTop = 0;
+    }
+  }
 </script>
 
 <svelte:head>
   <title>{title}</title>
 </svelte:head>
 <Page backVisible>
-  <div class="video-layout">
-    <div class="video-and-details" bind:this={el}>
+  <div class="video-layout" bind:this={layoutEl}>
+    <div class="video-and-details" bind:this={detailsEl}>
       <div class="card-target">
         <div class="video-spacer" />
         <div
@@ -67,13 +73,12 @@
 
 <style lang="scss">
   .video-layout {
-    display: flex;
+    height: 100%;
     @media (max-width: 899px) {
-      flex-direction: column;
-      min-height: 100%;
+      overflow-y: auto;
     }
     @media (min-width: 900px) {
-      height: 100%;
+      display: flex;
     }
   }
   .slide {
