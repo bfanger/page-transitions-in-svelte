@@ -6,6 +6,7 @@
   import { fade } from "svelte/transition";
   import type { TransitionConfig } from "svelte/transition";
   import { quartOut } from "svelte/easing";
+  import { onMount } from "svelte";
 
   export let backVisible = false;
 
@@ -24,6 +25,11 @@
       },
     };
   }
+  onMount(() => {
+    if (previous === undefined) {
+      previous = backVisible;
+    }
+  });
 </script>
 
 <header class="header">
@@ -58,6 +64,7 @@
     align-items: center;
     color: inherit;
     will-change: transform;
+    -webkit-tap-highlight-color: transparent;
   }
   .back-icon {
     fill: var(--white);

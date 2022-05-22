@@ -38,6 +38,7 @@
 <style lang="scss">
   .video-link {
     color: inherit;
+    -webkit-tap-highlight-color: transparent;
     &:hover {
       text-decoration: none;
     }

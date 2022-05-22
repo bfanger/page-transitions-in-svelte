@@ -36,6 +36,7 @@
     color: var(--primary-color);
     display: block;
     padding: 0.15rem 1.4rem;
+    -webkit-tap-highlight-color: transparent;
   }
   .active {
     background: var(--primary-color);
