@@ -19,10 +19,14 @@
   import Overview from "$lib/components/Overview.svelte";
   import type { TeaserDto } from "$lib/services/api-types";
   import Page from "$lib/components/Page.svelte";
-  import imageUrl from "../assets/page-transitions-svelte.png";
+  import imageUrl from "../assets/page-transitions-svelte.jpg";
 
   export let teasers: TeaserDto[];
+
+  let baseUrl = "";
+
   if (import.meta.env.PROD) {
+    baseUrl = "https://http203-playlist-svelte.netlify.app";
     // eslint-disable-next-line no-console
     console.log(
       `%cSource: https://github.com/bfanger/page-transitions-in-svelte
@@ -45,7 +49,13 @@ Original Source: https://github.com/jakearchibald/http203-playlist`,
     property="og:description"
     content="A reimplementation of the transitions using SvelteKit. Inspired by Jake Archibald presentation https://youtu.be/JCJUPJ_zDQ4 'Bringing page transitions to the web'"
   />
-  <meta property="og:image" content={imageUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@jaffathecake" />
+  <meta name="twitter:creator" content="@bfanger" />
+  <meta property="og:image" content="{baseUrl}{imageUrl}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image" content="{baseUrl}{imageUrl}" />
 </svelte:head>
 <Page>
   <Overview {teasers} />
