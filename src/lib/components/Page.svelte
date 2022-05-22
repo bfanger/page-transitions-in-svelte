@@ -1,21 +1,12 @@
 <script lang="ts">
-  // eslint-disable-next-line import/extensions
-  import { afterNavigate } from "$app/navigation";
-
   import Header from "./Header.svelte";
 
   export let backVisible = false;
-
-  let el: HTMLElement;
-
-  afterNavigate(() => {
-    el.scrollTo(0, 0);
-  });
 </script>
 
 <div class="page">
   <Header {backVisible} />
-  <main class="content" bind:this={el}>
+  <main class="content">
     <slot />
   </main>
 </div>
@@ -32,6 +23,6 @@
   }
   .content {
     flex: 1;
-    overflow: auto;
+    overflow: hidden;
   }
 </style>

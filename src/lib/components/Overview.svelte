@@ -1,13 +1,26 @@
+<script lang="ts" context="module">
+  let previousScrollTop = 0;
+</script>
+
 <script lang="ts">
   import type { TeaserDto } from "$lib/services/api-types";
+  import { onMount } from "svelte";
   import Switch from "./Switch.svelte";
   import Teaser from "./Teaser.svelte";
 
   export let teasers: TeaserDto[];
   export let cohost: string | undefined = undefined;
+
+  let el: HTMLDivElement;
+  onMount(() => {
+    el.scrollTop = previousScrollTop;
+  });
+  function onScroll() {
+    previousScrollTop = el.scrollTop;
+  }
 </script>
 
-<div class="background">
+<div class="background" bind:this={el} on:scroll={onScroll}>
   <Switch active={cohost} />
   <ul class="grid">
     {#each teasers as teaser (teaser.href)}
@@ -21,6 +34,8 @@
 <style lang="scss">
   .background {
     background-color: var(--background);
+    height: 100%;
+    overflow-y: auto;
   }
   .grid {
     display: grid;
