@@ -31,6 +31,7 @@ type RawEpisodeDto = {
   };
 };
 type EnhancedEpisodeDto = RawEpisodeDto & {
+  title: string;
   slug: string;
   date: string;
   html: string;
@@ -45,23 +46,27 @@ type ThumbnailDto = {
 
 let cache: Promise<EnhancedEpisodeDto[]>;
 export function fetchAll(): Promise<EnhancedEpisodeDto[]> {
-  if (!cache) {
+  if (!cache || false) {
     cache = (async () => {
       const response = await (
         await fetch(
           "https://raw.githubusercontent.com/jakearchibald/http203-playlist/main/lib/data.json"
         )
       ).json();
-      return response.map((episode: EnhancedEpisodeDto) => ({
-        ...episode,
-        slug: slugify(episode.snippet.title, {
-          lower: true,
-          strict: true,
-        }),
-        date: episode.snippet.publishedAt.substring(0, 10),
-        html: marked.parse(episode.snippet.description),
-        cohost: calcCohost(episode),
-      }));
+      return response.map((episode: RawEpisodeDto) => {
+        const title = episode.snippet.title.replace(/ \| HTTP 203$/, "");
+        return {
+          ...episode,
+          title,
+          slug: slugify(title, {
+            lower: true,
+            strict: true,
+          }),
+          date: episode.snippet.publishedAt.substring(0, 10),
+          html: marked.parse(episode.snippet.description),
+          cohost: calcCohost(episode),
+        };
+      });
     })();
   }
   return cache;
@@ -78,9 +83,9 @@ export async function fetchEpisode(slug: string) {
 export function toTeaser(episode: EnhancedEpisodeDto): TeaserDto {
   return {
     videoId: episode.snippet.resourceId.videoId,
-    href: `/${episode.slug}`,
+    href: `/videos/${episode.slug}`,
     src: episode.snippet.thumbnails.medium.url,
-    alt: episode.snippet.title,
+    alt: episode.title,
     title: episode.date,
   };
 }

@@ -8,6 +8,7 @@
 
   let youtube = false;
   let opacity = 1;
+
   onMount(() => {
     setTimeout(() => {
       youtube = true;
