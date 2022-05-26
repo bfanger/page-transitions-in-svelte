@@ -17,7 +17,7 @@
     previous = backVisible;
     const size = 3.6;
     return {
-      duration: 400,
+      duration: 300,
       easing: quartOut,
       css(t, u) {
         const x = backVisible ? t * size - size : u * size;

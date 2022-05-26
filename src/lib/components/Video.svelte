@@ -5,6 +5,7 @@
   export let videoId: string;
   export let poster: string;
   export let alt: string;
+  export let youtubeDelay: number;
 
   let youtube = false;
   let opacity = 1;
@@ -12,7 +13,7 @@
   onMount(() => {
     setTimeout(() => {
       youtube = true;
-    }, 400);
+    }, youtubeDelay);
   });
 
   function onLoad() {
