@@ -1,27 +1,10 @@
-<script lang="ts" context="module">
-  import type { Load } from "@sveltejs/kit";
-  import api, { loadError } from "$lib/services/api";
-
-  export const load: Load = async ({ fetch }) => {
-    try {
-      const teasers = await api.get("teasers.json", { fetch });
-      return {
-        props: { teasers },
-      };
-    } catch (err) {
-      return loadError(err);
-    }
-  };
-</script>
-
 <script lang="ts">
-  // eslint-disable-next-line import/extensions
   import Overview from "$lib/components/Overview.svelte";
-  import type { TeaserDto } from "$lib/services/api-types";
   import Page from "$lib/components/Page.svelte";
   import imageUrl from "../assets/page-transitions-svelte.jpg";
+  import type { PageData } from "./$types";
 
-  export let teasers: TeaserDto[];
+  export let data: PageData;
 
   let baseUrl = "";
 
@@ -58,5 +41,5 @@ Original Source: https://github.com/jakearchibald/http203-playlist`,
   <meta property="og:image" content="{baseUrl}{imageUrl}" />
 </svelte:head>
 <Page>
-  <Overview {teasers} />
+  <Overview teasers={data.teasers} />
 </Page>

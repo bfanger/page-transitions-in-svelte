@@ -7,6 +7,5 @@ export default {
   kit: {
     prerender: { default: true },
     adapter: adapter(),
-    vite: { css: { devSourcemap: true } },
   },
 };

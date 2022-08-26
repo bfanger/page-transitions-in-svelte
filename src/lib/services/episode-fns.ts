@@ -92,6 +92,9 @@ export function toTeaser(episode: EnhancedEpisodeDto): TeaserDto {
 
 function calcCohost(data: RawEpisodeDto) {
   const timestamp = new Date(data.snippet.publishedAt).getTime();
+  if (timestamp >= 1654000000000) {
+    return "cassie";
+  }
   if (timestamp >= 1646000000000) {
     return "ada";
   }

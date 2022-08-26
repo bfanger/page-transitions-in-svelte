@@ -1,30 +1,12 @@
-<script lang="ts" context="module">
-  import type { Load } from "@sveltejs/kit";
-  import api from "$lib/services/api";
-
-  export const load: Load = async ({ params, fetch }) => {
-    const episode = await api.get("episodes/[episode].json", { params, fetch });
-    const teasers = await api.get("teasers.json", { fetch });
-    return {
-      props: { ...episode, teasers },
-    };
-  };
-</script>
-
 <script lang="ts">
   import Page from "$lib/components/Page.svelte";
   import Scroller from "$lib/components/Scroller.svelte";
   import Video from "$lib/components/Video.svelte";
-  import type { TeaserDto } from "$lib/services/api-types";
   import { pageIn, pageOut } from "$lib/services/pageCrossfade";
   import { fade, fly, type TransitionConfig } from "svelte/transition";
+  import type { PageData } from "./$types";
 
-  export let title: string;
-  export let videoId: string;
-  export let poster: string;
-  export let date: string;
-  export let description: string;
-  export let teasers: TeaserDto[];
+  export let data: PageData;
 
   let innerWidth = typeof window === "undefined" ? 0 : window.innerWidth;
   $: phoneTransition = innerWidth <= 660;
@@ -32,7 +14,7 @@
   let layoutEl: HTMLElement;
   let detailsEl: HTMLElement;
   $: {
-    videoId;
+    data.videoId;
     scrollToTop();
   }
   function scrollToTop() {
@@ -62,7 +44,7 @@
 </script>
 
 <svelte:head>
-  <title>{title} - HTTP 203</title>
+  <title>{data.title} - HTTP 203</title>
 </svelte:head>
 <svelte:window bind:innerWidth />
 <Page backVisible>
@@ -72,11 +54,11 @@
         <div class="video-spacer" />
         <div
           class="meta-target"
-          in:pageIn={`meta/${videoId}`}
-          out:pageOut={`meta/${videoId}`}
+          in:pageIn={`meta/${data.videoId}`}
+          out:pageOut={`meta/${data.videoId}`}
         />
       </div>
-      {#key videoId}
+      {#key data.videoId}
         <div
           class="slide"
           in:fly|local={phoneTransition
@@ -85,9 +67,9 @@
           out:slideOut|local
         >
           <Video
-            {videoId}
-            {poster}
-            alt={title}
+            videoId={data.videoId}
+            poster={data.poster}
+            alt={data.title}
             youtubeDelay={phoneTransition ? 850 : 450}
           />
           <div
@@ -96,16 +78,16 @@
               ? { duration: 0 }
               : { delay: 100, duration: 200 }}
           >
-            <h1 class="title">{title}</h1>
-            <time>{date}</time>
+            <h1 class="title">{data.title}</h1>
+            <time>{data.date}</time>
             {phoneTransition}
-            <div class="description">{@html description}</div>
+            <div class="description">{@html data.description}</div>
           </div>
         </div>
       {/key}
     </div>
     <div class="scroller">
-      <Scroller {teasers} />
+      <Scroller teasers={data.teasers} />
     </div>
   </div>
 </Page>

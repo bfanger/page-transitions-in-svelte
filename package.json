@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "build": "svelte-kit build",
-    "preview": "svelte-kit preview",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "concurrently -c \"#c596c7\",\"#676778\",\"#3074c0\",\"#7c7cea\" --kill-others-on-fail \"npm:lint:*\"",
     "lint:prettier": "prettier --check --loglevel=warn \"src/**/*.svelte\"",
     "lint:svelte-check": "svelte-check --fail-on-warnings --fail-on-hints --ignore build,package",
@@ -42,13 +42,13 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-triple": "^0.5.1",
-    "eslint-import-resolver-typescript": "^2.7.0",
+    "eslint-import-resolver-typescript": "^3.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-only-warn": "^1.0.3",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-svelte3": "^4.0.0",
     "husky": "^8.0.1",
-    "lint-staged": "^12.3.7",
+    "lint-staged": "^13.0.3",
     "postcss": "^8.4.12",
     "prettier": "^2.6.1",
     "prettier-plugin-svelte": "^2.6.0",
@@ -57,7 +57,7 @@
     "svelte-check": "^2.4.6",
     "svelte-preprocess": "^4.10.4",
     "typescript": "^4.6.3",
-    "vite": "^2.9.1"
+    "vite": "^3.0.9"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
