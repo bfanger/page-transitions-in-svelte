@@ -1,6 +1,21 @@
 import slugify from "slugify";
 import { marked } from "marked";
-import type { TeaserDto } from "./api-types";
+
+export type TeaserDto = {
+  videoId: string;
+  href: string;
+  src: string;
+  alt: string;
+  title: string;
+};
+
+export type EpisodeDto = {
+  title: string;
+  videoId: string;
+  poster: string;
+  date: string;
+  description: string;
+};
 
 type RawEpisodeDto = {
   kind: string;

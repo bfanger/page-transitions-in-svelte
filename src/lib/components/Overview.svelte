@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-  import type { TeaserDto } from "$lib/services/api-types";
+  import type { TeaserDto } from "$lib/services/episode-fns";
   import { onMount } from "svelte";
   import Switch from "./Switch.svelte";
   import Teaser from "./Teaser.svelte";

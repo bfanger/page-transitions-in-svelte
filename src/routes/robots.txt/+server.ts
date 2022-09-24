@@ -1,22 +1,23 @@
-/* eslint-disable import/prefer-default-export */
+import { env } from "$env/dynamic/private";
+
+// Remove prerender when switching to the adapter-node (SSR)
+export const prerender = true;
 
 /**
  * Enable or disable indexing of the site.
  *
  * @link https://www.robotstxt.org/robotstxt.html
  */
-export const get = () => {
+export const GET = () => {
   let allow = true;
-  const robotstxt = process.env.ROBOTSTXT;
+  const robotstxt = env.ROBOTSTXT;
   if (robotstxt === "noindex") {
     allow = false;
   } else if (robotstxt !== "index") {
     console.warn("Invalid ROBOTSTXT env, expecting 'noindex' or 'index'");
   }
 
-  return {
-    body: `User-agent: *
+  return new Response(`User-agent: *
 Disallow:${allow ? "" : " /"}
-`,
-  };
+`);
 };
